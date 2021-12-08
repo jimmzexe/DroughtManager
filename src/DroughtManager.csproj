@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<AssemblyName>DroughtManager</AssemblyName>
+		<Description>Manage your beavers during a drought</Description>
+		<Version>1.0.0</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.7" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Core" Version="5.4.16" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2021.2.2" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="C:\Development\Private\Timberborn\libs\*.dll" />
+	</ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy /y /d  &quot;$(ProjectDir)obj\Release\netstandard2.1\DroughtManager.dll&quot; &quot;$(ProjectDir)resources\&quot;&#xD;&#xA;xcopy /y /d  &quot;$(ProjectDir)obj\Debug\netstandard2.1\DroughtManager.dll&quot; &quot;$(ProjectDir)resources\&quot;" />
+	</Target>
+</Project>
